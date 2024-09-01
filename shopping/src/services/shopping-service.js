@@ -44,8 +44,9 @@ class ShoppingService {
 
     async SubscribeEvents(payload){
  
-        console.log(payload ,"payload");
-        // payload = JSON.parse(payload);
+        // console.log(payload ,"payload");
+        payload = JSON.parse(payload);
+
         const { event, data } = payload;
         const { userId, product, qty } = data;
         

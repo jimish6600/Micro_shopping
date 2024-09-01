@@ -1,4 +1,4 @@
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const amqplib = require('amqplib');
 
@@ -71,6 +71,7 @@ module.exports.CreateChannel = async () => {
 
 //publish messaages
 module.exports.PublishMessage = async(channel, binding_key, msg) => {
+  // console.log(binding_key,"op")
   try{
     await channel.publish(EXCHANGE_NAME, binding_key, Buffer.from(msg));
     console.log("Sent: ", msg);

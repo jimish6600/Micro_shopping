@@ -75,7 +75,8 @@ module.exports = (app , channel) => {
 
             // PublishCustomerEvent(data);
 
-            PublishMessage(channel, CUSTOMER_BINDING_KEY, JSON.stringfy(data))
+            PublishMessage(channel, CUSTOMER_BINDING_KEY, JSON.stringify(data));
+
             return res.status(200).json(data.data.product);
         } catch (err) {
             
@@ -90,7 +91,7 @@ module.exports = (app , channel) => {
         try {
             const { data } = await service.GetProductPayload(_id,{ productId },"REMOVE_FROM_WISHLIST");
 
-            PublishMessage(channel, CUSTOMER_BINDING_KEY, JSON.stringfy(data))
+            PublishMessage(channel, CUSTOMER_BINDING_KEY, JSON.stringify(data))
 
             return res.status(200).json(data.data.product);
         } catch (err) {
@@ -110,8 +111,8 @@ module.exports = (app , channel) => {
             // PublishCustomerEvent(data);
             // PublishShoppingEvent(data);
 
-            PublishMessage(channel, CUSTOMER_BINDING_KEY, JSON.stringfy(data))
-            PublishMessage(channel, SHOPPING_BINDING_KEY, JSON.stringfy(data))
+            PublishMessage(channel, CUSTOMER_BINDING_KEY, JSON.stringify(data))
+            PublishMessage(channel, SHOPPING_BINDING_KEY, JSON.stringify(data))
 
             const response = {
                 product: data.data.product, 
@@ -134,8 +135,8 @@ module.exports = (app , channel) => {
             
             // PublishCustomerEvent(data);
             // PublishShoppingEvent(data);
-            PublishMessage(channel, CUSTOMER_BINDING_KEY, JSON.stringfy(data))
-            PublishMessage(channel, SHOPPING_BINDING_KEY, JSON.stringfy(data))
+            PublishMessage(channel, CUSTOMER_BINDING_KEY, JSON.stringify(data))
+            PublishMessage(channel, SHOPPING_BINDING_KEY, JSON.stringify(data))
             
             const response = {
                 product: data.data.product, 

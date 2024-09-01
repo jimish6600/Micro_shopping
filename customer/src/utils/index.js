@@ -1,6 +1,8 @@
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const amqplib = require('amqplib')
+const amqplib = require('amqplib');
+const CustomerService = require("../services/customer-service");
+
 
 const { APP_SECRET, QUEUE_NAME, MESSAGE_BROKER_URL, EXCHANGE_NAME, CUSTOMER_BINDING_KEY } = require("../config");
 
@@ -65,12 +67,14 @@ module.exports.CreateChannel = async () => {
 };
 
 //subscribe messages
+
 module.exports.SubscribeMessage = async(channel,service)=>{
   const appQueue = await channel.assertQueue(QUEUE_NAME)
   channel.bindQueue(appQueue.queue,EXCHANGE_NAME,CUSTOMER_BINDING_KEY);
   channel.consume(appQueue.queue,data=>{
     console.log('received data')
     console.log(data.content.toString())
+    service.SubscribeEvents(data.content.toString())
     channel.ack(data)
   })
 }
